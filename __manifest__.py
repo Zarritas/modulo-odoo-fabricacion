@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "jll_cornercookie",
+    'name': "Fabricación Corner Cookies",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Fabricación automática""",
 
     'description': """
-        Long description of module's purpose
+        Modelos para la fabricación automática de galletas
+        para la empresa de Corner Cookies.
     """,
 
-    'author': "My Company",
-    'website': "https://www.yourcompany.com",
+    'author': "Jesús Lorenzo Limón",
+    'website': "https://www.github.com/Zarritas",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/16.0/odoo/addons/base/data/ir_module_category_data.xml
