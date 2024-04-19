@@ -27,14 +27,46 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="jll_cornercookie.proveedor_list">
+      <field name="name">jll_cornercookie pedido list</field>
+      <field name="model">jll_cornercookie.proveedor</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="nombre"/>
+        </tree>
+      </field>
+    </record>
+    <record id="model_name_view_form" model="ir.ui.view">
+      <field name="name">model_name.view.form</field>
+      <field name="model">jll_cornercookie.proveedor</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="nombre"/>
+              <field name="dni"/>
+              <field name="telefono"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
     <!-- actions opening views on models -->
 
-    <record model="ir.actions.act_window" id="jll_cornercookie.action_window">
-      <field name="name">jll_cornercookie window</field>
+    <record model="ir.actions.act_window" id="jll_cornercookie.pedido_action_window">
+      <field name="name">jll_cornercookie pedido</field>
       <field name="res_model">jll_cornercookie.pedido</field>
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="jll_cornercookie.proveedor_action_window">
+      <field name="name">jll_cornercookie proveedor</field>
+      <field name="res_model">jll_cornercookie.proveedor</field>
+      <field name="view_mode">tree,form</field>
+    </record>
 
     <!-- server action to the one above -->
 <!--
@@ -62,8 +94,10 @@
     <!-- <menuitem name="Menu 2" id="jll_cornercookie.menu_2" parent="jll_cornercookie.menu_root"/> -->
 
     <!-- actions -->
-    <menuitem name="List" id="jll_cornercookie.menu_1_list" parent="jll_cornercookie.menu_1"
-              action="jll_cornercookie.action_window"/>
+    <menuitem name="Pedido" id="jll_cornercookie.menu_1_list" parent="jll_cornercookie.menu_1"
+              action="jll_cornercookie.pedido_action_window"/>
+    <menuitem name="Proveedor" id="jll_cornercookie.menu_2_list" parent="jll_cornercookie.menu_1"
+              action="jll_cornercookie.proveedor_action_window"/>
     <!-- <menuitem name="Server to list" id="jll_cornercookie" parent="jll_cornercookie.menu_2"
               action="jll_cornercookie.action_server"/> -->
   </data>
