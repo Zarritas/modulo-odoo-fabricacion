@@ -1,104 +1,411 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-
-    <record model="ir.ui.view" id="jll_cornercookie.pedido_list">
-      <field name="name">jll_cornercookie pedido list</field>
-      <field name="model">jll_cornercookie.pedido</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="fechapedido"/>
-        </tree>
-      </field>
-    </record>
-    <record id="model_name_view_form" model="ir.ui.view">
-      <field name="name">model_name.view.form</field>
-      <field name="model">jll_cornercookie.pedido</field>
-      <field name="arch" type="xml">
-        <form>
-          <sheet>
-            <group>
-              <field name="name" />
-              <field name="fechapedido" />
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
-
-    <record model="ir.ui.view" id="jll_cornercookie.proveedor_list">
-      <field name="name">jll_cornercookie pedido list</field>
+<!-- Provedores -->
+    <!-- Tree -->
+    <record id="jll_cornercookie.proveedor_tree" model="ir.ui.view">
+      <field name="name">Listado de proveedores</field>
       <field name="model">jll_cornercookie.proveedor</field>
       <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="nombre"/>
-        </tree>
-      </field>
-    </record>
-    <record id="model_name_view_form" model="ir.ui.view">
-      <field name="name">model_name.view.form</field>
-      <field name="model">jll_cornercookie.proveedor</field>
-      <field name="arch" type="xml">
-        <form>
-          <sheet>
-            <group>
+          <tree string="Proveedores">
               <field name="name"/>
               <field name="nombre"/>
-              <field name="dni"/>
-              <field name="telefono"/>
-            </group>
-          </sheet>
-        </form>
+              <field name="autonomo"/>
+          </tree>
+      </field>
+    </record>
+    <!-- Form -->
+    <record id="jll_cornercookie.proveedor_form" model="ir.ui.view">
+      <field name="name">Formulario de proveedor</field>
+      <field name="model">jll_cornercookie.proveedor</field>
+      <field name="arch" type="xml">
+          <form string="Proveedor" style="font-size: 20px;">
+              <div class="oe_title">
+                  <h1 style="color: #4EACC8; font-size: 50px;">Código de Proveedor: <field name="name"/></h1>
+              </div>
+              <sheet>
+                  <group>
+                      <group>
+                          <field name="nombre"/>
+                          <field name="dni"/>
+                          <field name="telefono"/>
+                          <field name="autonomo"/>
+                      </group>
+                  </group>
+                  <notebook>
+                      <page string="Pedidos">
+                          <field name="id_pedidos" widget="one2many_list"/>
+                      </page>
+                  </notebook>
+              </sheet>
+          </form>
+      </field>
+    </record>
+  
+<!-- Pedidos Materias Primas -->
+    <!-- Tree -->
+    <record id="jll_cornercookie.pedido_materiaprima_list" model="ir.ui.view">
+      <field name="name">Lista de pedidos por materias primas</field>
+      <field name="model">jll_cornercookie.pedido_materiaprima</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="id_pedido" />
+          <field name="id_materiaprima" />
+          <field name="cantidad"/>
+        </tree>
       </field>
     </record>
 
-    <!-- actions opening views on models -->
-
-    <record model="ir.actions.act_window" id="jll_cornercookie.pedido_action_window">
-      <field name="name">jll_cornercookie pedido</field>
-      <field name="res_model">jll_cornercookie.pedido</field>
-      <field name="view_mode">tree,form</field>
+<!-- Pedidos -->
+    <!-- Tree -->
+    <record id="jll_cornercookie.pedido_tree_view" model="ir.ui.view">
+      <field name="name">Listado de pedidos</field>
+      <field name="model">jll_cornercookie.pedido</field>
+      <field name="arch" type="xml">
+          <tree string="Pedidos">
+              <field name="name"/>
+              <field name="fecha_pedido"/>
+              <field name="id_proveedor"/>
+              <field name="pedidos_materiasprimas"/>
+          </tree>
+      </field>
+    </record>
+    <!-- Form -->
+    <record id="jll_cornercookie.pedido_form_view" model="ir.ui.view">
+      <field name="name">Formulario de pedido</field>
+      <field name="model">jll_cornercookie.pedido</field>
+      <field name="arch" type="xml">
+          <form string="Pedido" style="font-size: 20px;">
+              <div class="oe_title">
+              <h1 style="color: #4EACC8; font-size: 50px;">Código de Pedido: <field name="name"/></h1>
+              </div>
+              <sheet>
+                  <group>
+                      <group>
+                          <field name="fecha_pedido"/>
+                          <field name="id_proveedor"/>
+                      </group>
+                  </group>
+                  <notebook>
+                      <page string="Materias Primas">
+                          <field name="pedidos_materiasprimas" widget="one2many_list"/>
+                      </page>
+                  </notebook>
+              </sheet>
+          </form>
+      </field>
+    </record>
+  
+<!-- Materias Primas -->
+    <!-- Tree -->
+    <record id="jll_cornercookie.materiaprima_tree_view" model="ir.ui.view">
+      <field name="name">Listado de materias primas</field>
+      <field name="model">jll_cornercookie.materiaprima</field>
+      <field name="arch" type="xml">
+          <tree string="Materias Primas">
+              <field name="nombre"/>
+              <field name="medida"/>
+              <field name="cantidad_disponible"/>
+          </tree>
+      </field>
+    </record>
+    <!-- Form -->
+    <record id="jll_cornercookie.materiaprima_form_view" model="ir.ui.view">
+      <field name="name">Formulario de materia prima</field>
+      <field name="model">jll_cornercookie.materiaprima</field>
+      <field name="arch" type="xml">
+          <form string="Materia Prima" style="font-size: 20px;">
+            <div class="oe_title">
+              <h1 style="color: #4EACC8; font-size: 50px;">Nombre de la materia prima: <field name="nombre"/></h1>
+            </div>
+            <sheet>
+                <group>
+                    <group>
+                        <field name="medida"/>
+                        <field name="cantidad_disponible"/>
+                    </group>
+                </group>
+                <notebook>
+                  <page name="name" string="Pedidos">
+                    <field name="pedidos_asociados"/>
+                  </page>
+                </notebook>
+            </sheet>
+          </form>
+      </field>
     </record>
 
+<!-- Productos -->
+    <!-- Tree -->
+    <record id="jll_cornercookie.producto_tree_view" model="ir.ui.view">
+      <field name="name">Listado de productos</field>
+      <field name="model">jll_cornercookie.producto</field>
+      <field name="arch" type="xml">
+          <tree string="Productos">
+            <field name="name"/>
+            <field name="ean"/>
+            <field name="precio_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            <field name="currency_id" invisible="1"/>
+          </tree>
+      </field>
+    </record>
+    <!-- Form -->
+    <record id="jll_cornercookie.producto_form_view" model="ir.ui.view">
+      <field name="name">Formulario de producto</field>
+      <field name="model">jll_cornercookie.producto</field>
+      <field name="arch" type="xml">
+          <form string="Producto" style="font-size: 20px;">
+              <div class="oe_title">
+                  <h1 style="color: #4EACC8; font-size: 50px;">Nombre de producto: <field name="name"/></h1>
+              </div>
+              <sheet>
+                  <div class="oe_structure">
+                      <notebook>
+                          <page string="Precio y Cantidad">
+                              <group>
+                                  <field name="precio" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                  <field name="currency_id" invisible="1"/>
+                                  <field name="cantidad"/>
+                              </group>
+                          </page>
+                          <page string="Horneadas y Procesos">
+                              <group>
+                                  <field name="id_horneadas"/>
+                                  <field name="id_procesos"/>
+                              </group>
+                          </page>
+                      </notebook>
+                  </div>
+              </sheet>
+          </form>
+      </field>
+    </record>
+    <!-- Kanban -->
+    <record id="jll_cornercookie.producto_kanban_view" model="ir.ui.view">
+      <field name="name">Producto Kanban</field>
+      <field name="model">jll_cornercookie.producto</field>
+      <field name="arch" type="xml">
+          <kanban class="o_kanban_mobile">
+              <templates>
+                  <t t-name="kanban-box">
+                      <div class="oe_kanban_global_click">
+                          <div class="oe_kanban_card">
+                              <div class="oe_kanban_card_inner">
+                                  <div class="oe_kanban_card_title">
+                                      <field name="name"/>
+                                  </div>
+                                  <div class="oe_kanban_card_content">
+                                      <div>
+                                          <strong>Precio:</strong> <field name="precio" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                          <field name="currency_id" invisible="1"/>
+                                      </div>
+                                      <div>
+                                          <strong>Cantidad:</strong> <field name="cantidad"/>
+                                      </div>
+                                      <div>
+                                          <strong>Código EAN:</strong> <field name="ean"/>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </t>
+              </templates>
+          </kanban>
+      </field>
+    </record>
+  
+<!-- Horneadas -->
+    <!-- Tree -->
+    <record id="jll_cornercookie.hornada_tree_view" model="ir.ui.view">
+      <field name="name">Listado de hornadas</field>
+      <field name="model">jll_cornercookie.hornada</field>
+      <field name="arch" type="xml">
+          <tree string="Hornadas">
+              <field name="name"/>
+              <field name="cantidad"/>
+              <field name="fecha_caducidad"/>
+          </tree>
+      </field>
+    </record>
+    <!-- Form -->
+    <record id="jll_cornercookie.hornada_form_view" model="ir.ui.view">
+      <field name="name">Formulario de hornada</field>
+      <field name="model">jll_cornercookie.hornada</field>
+      <field name="arch" type="xml">
+          <form string="Hornada" style="font-size: 20px;">
+              <div class="oe_title">
+                  <h1 style="color: #4EACC8; font-size: 50px;">Código Hornada: <field name="name"/></h1>
+              </div>
+              <sheet>
+                  <group>
+                      <field name="cantidad"/>
+                      <field name="fecha_caducidad"/>
+                      <field name="id_producto"/>
+                  </group>
+              </sheet>
+          </form>
+      </field>
+    </record>
+
+<!-- Procesos -->
+    <!-- Tree -->
+    <record id="jll_cornercookie.proceso_tree_view" model="ir.ui.view">
+      <field name="name">Listado de procesos</field>
+      <field name="model">jll_cornercookie.proceso</field>
+      <field name="arch" type="xml">
+          <tree string="Procesos">
+              <field name="name"/>
+              <field name="tipo"/>
+              <field name="tiempo"/>
+          </tree>
+      </field>
+    </record>
+    <!-- Form -->
+    <record id="jll_cornercookie.proceso_form_view" model="ir.ui.view">
+      <field name="name">Formulario de proceso</field>
+      <field name="model">jll_cornercookie.proceso</field>
+      <field name="arch" type="xml">
+          <form string="Proceso" style="font-size: 20px;">
+              <div class="oe_title">
+                  <h1 style="color: #4EACC8; font-size: 50px;">Código del Proceso: <field name="name"/></h1>
+              </div>
+              <sheet> 
+                  <group>
+                      <field name="tipo"/>
+                      <field name="tiempo"/>
+                      <field name="id_productos"/>
+                      <field name="id_maquinaria"/>
+                  </group>
+              </sheet>
+          </form>
+      </field>
+    </record>
+
+<!-- Maquinarias -->
+    <!-- Tree -->
+    <record id="jll_cornercookie.maquinaria_tree_view" model="ir.ui.view">
+      <field name="name">Maquinaria Tree</field>
+      <field name="model">jll_cornercookie.maquinaria</field>
+      <field name="arch" type="xml">
+          <tree string="Maquinaria">
+              <field name="name"/>
+              <field name="nombre"/>
+              <field name="fabricante"/>
+          </tree>
+      </field>
+    </record>
+    <!-- Form -->
+    <record id="jll_cornercookie.maquinaria_form_view" model="ir.ui.view">
+      <field name="name">Formulario de maquinaria</field>
+      <field name="model">jll_cornercookie.maquinaria</field>
+      <field name="arch" type="xml">
+          <form string="Maquinaria" style="font-size: 20px;">
+              <div class="o_field_widget">
+                  <h1 style="color: #4EACC8; font-size: 50px;">Código de máquina: <field name="name"/></h1>
+              </div>
+              <sheet>
+                  <notebook>
+                      <page string="Datos generales">
+                          <group>
+                              <group>
+                                  <label class="o_form_label" for="nombre"/>
+                                  <div class="o_field_widget">
+                                      <field name="nombre" placeholder="Nombre de la maquinaria" help="Nombre de la maquinaria"/>
+                                  </div>
+                              </group>
+                              <group>
+                                  <label class="o_form_label" for="modelo"/>
+                                  <div class="o_field_widget">
+                                      <field name="modelo" placeholder="Modelo"/>
+                                  </div>
+                              </group>
+                              <group>
+                                  <label class="o_form_label" for="cantidad"/>
+                                  <div class="o_field_widget">
+                                      <field name="cantidad" placeholder="Cantidad"/>
+                                  </div>
+                              </group>
+                              <group>
+                                  <label class="o_form_label" for="fabricante"/>
+                                  <div class="o_field_widget">
+                                      <field name="fabricante" placeholder="Fabricante"/>
+                                  </div>
+                              </group>
+                          </group>
+                      </page>
+                      <page string="Procesos disponibles">
+                          <field name="id_procesos"/>
+                      </page>
+                  </notebook>
+              </sheet>
+          </form>
+      </field>
+    </record>
+  
+
+
+    <!-- actions opening views on models -->
     <record model="ir.actions.act_window" id="jll_cornercookie.proveedor_action_window">
-      <field name="name">jll_cornercookie proveedor</field>
+      <field name="name">Proveedores</field>
       <field name="res_model">jll_cornercookie.proveedor</field>
       <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="jll_cornercookie.action_server">
-      <field name="name">jll_cornercookie server</field>
-      <field name="model_id" ref="model_jll_cornercookie_jll_cornercookie"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
+    <record model="ir.actions.act_window" id="jll_cornercookie.pedido_action_window">
+      <field name="name">Pedidos</field>
+      <field name="res_model">jll_cornercookie.pedido</field>
+      <field name="view_mode">tree,form</field>
     </record>
--->
 
+    <record model="ir.actions.act_window" id="jll_cornercookie.materia_prima_action_window">
+      <field name="name">Materias Primas</field>
+      <field name="res_model">jll_cornercookie.materiaprima</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="jll_cornercookie.producto_action_window">
+      <field name="name">Producto</field>
+      <field name="res_model">jll_cornercookie.producto</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="jll_cornercookie.hornada_action_window">
+      <field name="name">Hornada</field>
+      <field name="res_model">jll_cornercookie.hornada</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="jll_cornercookie.proceso_action_window">
+      <field name="name">Procesos</field>
+      <field name="res_model">jll_cornercookie.proceso</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="jll_cornercookie.maquinaria_action_window">
+      <field name="name">Maquinarias</field>
+      <field name="res_model">jll_cornercookie.maquinaria</field>
+      <field name="view_mode">tree,form</field>
+    </record>
     <!-- Top menu item -->
 
-    <menuitem name="jll_cornercookie" id="jll_cornercookie.menu_root"/>
+    <menuitem name="Fabricación de galletas" id="jll_cornercookie.menu_root"/>
 
     <!-- menu categories -->
 
-    <menuitem name="Menu 1" id="jll_cornercookie.menu_1" parent="jll_cornercookie.menu_root"/>
-    <!-- <menuitem name="Menu 2" id="jll_cornercookie.menu_2" parent="jll_cornercookie.menu_root"/> -->
-
     <!-- actions -->
-    <menuitem name="Pedido" id="jll_cornercookie.menu_1_list" parent="jll_cornercookie.menu_1"
+    <menuitem name="Pedido" id="jll_cornercookie.menu_pedido_list" parent="jll_cornercookie.menu_root"
               action="jll_cornercookie.pedido_action_window"/>
-    <menuitem name="Proveedor" id="jll_cornercookie.menu_2_list" parent="jll_cornercookie.menu_1"
+    <menuitem name="Proveedor" id="jll_cornercookie.menu_provbeedor_list" parent="jll_cornercookie.menu_root"
               action="jll_cornercookie.proveedor_action_window"/>
-    <!-- <menuitem name="Server to list" id="jll_cornercookie" parent="jll_cornercookie.menu_2"
-              action="jll_cornercookie.action_server"/> -->
+    <menuitem name="Materia Prima" id="jll_cornercookie.menu_materia_prima_list" parent="jll_cornercookie.menu_root"
+              action="jll_cornercookie.materia_prima_action_window"/>
+    <menuitem name="Producto" id="jll_cornercookie.producto_prima_list" parent="jll_cornercookie.menu_root"
+              action="jll_cornercookie.producto_action_window"/>
+    <menuitem name="Hornada" id="jll_cornercookie.hornada_prima_list" parent="jll_cornercookie.menu_root"
+              action="jll_cornercookie.hornada_action_window"/>
+    <menuitem name="Proceso" id="jll_cornercookie.menu_proceso_list" parent="jll_cornercookie.menu_root"
+              action="jll_cornercookie.proceso_action_window"/>
+    <menuitem name="Maquinaria" id="jll_cornercookie.menu_maquinaria_list" parent="jll_cornercookie.menu_root"
+              action="jll_cornercookie.maquinaria_action_window"/>
   </data>
 </odoo>
