@@ -34,19 +34,19 @@ class Pedido(models.Model):
     _description = 'Pedidos de Materias Primas'
     
     name = fields.Char('Código de Pedido', compute='_crear_codigo')
-    fecha_pedido = fields.Datetime('Fecha de Horneación',compute='_poner_fecha')
+    fecha_pedido = fields.Datetime('Fecha de Pedido',compute='_poner_fecha')
     id_proveedor = fields.Many2one('jll_cornercookie.proveedor', string='Proveedor', required=True)
     pedidos_materiasprimas = fields.One2many('jll_cornercookie.pedido_materiaprima', 'id_pedido', string='Materias Primas')
 
     @api.depends('fecha_pedido')
     def _crear_codigo(self):
         for pedido in self:
-            pedido.name =  str(pedido.fecha_pedido.strftime("%d/%m/%Y|%H:%M:%S")) + '-' + str(pedido.id_proveedor.name)
+            #pedido.name =  str(pedido.fecha_pedido.strftime("%d/%m/%Y")) + '-' + str(pedido.id_proveedor.name)
+            pedido.name =  str(pedido.fecha_pedido) + '-' + str(pedido.id_proveedor.name)
 
     @api.depends()
     def _poner_fecha(self):
-        for pedido in self:
-            pedido.fecha_pedido = datetime.now()
+        self.fecha_pedido = datetime.now()
 
             
 class MateriaPrima(models.Model):
@@ -110,12 +110,12 @@ class Hornada(models.Model):
     @api.depends('fecha_creacion')
     def _crear_codigo(self):
         for hornada in self:
-            hornada.name =  str(hornada.fecha_creacion.strftime("%d/%m/%Y|%H:%M:%S")) + '-' + str(hornada.id_producto.name)
+            hornada.name =  hornada.fecha_creacion.strftime("%d/%m/%Y") + '-' + str(hornada.id_producto.name)
             
     @api.depends()
     def _poner_fecha(self):
-        for hornada in self:
-            hornada.fecha_creacion = datetime.now()
+        if self.fecha_creacion == False :
+            self.fecha_creacion = datetime.now()
 
     @api.depends('fecha_creacion')
     def _calcular_fecha_caducidad(self):

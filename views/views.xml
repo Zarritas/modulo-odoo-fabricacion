@@ -63,7 +63,6 @@
       <field name="arch" type="xml">
           <tree string="Pedidos">
               <field name="name"/>
-              <field name="fecha_pedido"/>
               <field name="id_proveedor"/>
               <field name="pedidos_materiasprimas"/>
           </tree>
@@ -81,7 +80,6 @@
               <sheet>
                   <group>
                       <group>
-                          <field name="fecha_pedido"/>
                           <field name="id_proveedor"/>
                       </group>
                   </group>
