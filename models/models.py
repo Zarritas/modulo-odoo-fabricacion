@@ -65,8 +65,7 @@ class Producto(models.Model):
     _description = 'Productos que vamos a fabricar'
     
     name = fields.Char('Nombre', store=True)
-    secuencia_codigo = fields.Integer('Secuencia Código', default=1)
-    
+
     precio = fields.Monetary('Precio por unidad',currency_field='currency_id')
     precio_total = fields.Monetary('Precio total',compute='_precio_total', store=True, currency_field='currency_id')
     currency_id = fields.Many2one('res.currency', string='Moneda', default=lambda self: self.env.company.currency_id)
