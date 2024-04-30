@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <!-- Proveedores -->
+       <record id="juan" model="jll_cornercookie.proveedor">
+        <field name="nombre">Juan</field>
+        <field name="dni">12345678A</field>
+        <field name="telefono">655333212</field>
+        <field name="autonomo">True</field>
+       </record> 
+       <record id="cuetara" model="jll_cornercookie.proveedor">
+        <field name="nombre">Cuetara S.L</field>
+        <field name="dni">B98755642</field>
+        <field name="telefono">699875135</field>
+       </record> 
+       <!-- Pedidos -->
+       <record id="pedido1" model="jll_cornercookie.pedido">
+        <field name="id_proveedor" ref="juan"></field>
+       </record>
+       <record id="pedido2" model="jll_cornercookie.pedido">
+        <field name="id_proveedor" ref="juan"></field>
+       </record>
+       <record id="pedido3" model="jll_cornercookie.pedido">
+        <field name="id_proveedor" ref="cuetara"></field>
+       </record>
+
+       <!-- Materias Primas -->
+       <record id="harina" model="jll_cornercookie.materiaprima">
+        <field name="nombre">Harina</field>
+        <field name="medida">G</field>
+        <!-- <field name="pedidos_asociados" ref="pedido1"/>
+        <field name="pedidos_asociados" ref="pedido2"/>
+        <field name="pedidos_asociados" ref="pedido3"/> -->
+       </record>
+       <record id="plastico" model="jll_cornercookie.materiaprima">
+        <field name="nombre">Plastico</field>
+        <field name="medida">M</field>
+        <!-- <field name="pedidos_asociados" ref="pedido1"/>
+        <field name="pedidos_asociados" ref="pedido2"/> -->
+       </record>
+       <record id="chocolate" model="jll_cornercookie.materiaprima">
+        <field name="nombre">Chocolate</field>
+        <field name="medida">G</field>
+        <!-- <field name="pedidos_asociados" ref="pedido3"/> -->
+       </record>
+
+       <!-- Materias primas Pedidos -->
+       <record id="pedido1harina" model="jll_cornercookie.pedido_materiaprima">
+        <field name="id_materiaprima" ref="harina"/>
+        <field name="id_pedido" ref="pedido1"/>
+        <field name="cantidad">50</field>
+       </record>
+       <record id="pedido1platico" model="jll_cornercookie.pedido_materiaprima">
+        <field name="id_materiaprima" ref="plastico"/>
+        <field name="id_pedido" ref="pedido1"/>
+        <field name="cantidad">38</field>
+       </record>
+       <record id="pedido2harina" model="jll_cornercookie.pedido_materiaprima">
+        <field name="id_materiaprima" ref="harina"/>
+        <field name="id_pedido" ref="pedido2"/>
+        <field name="cantidad">53</field>
+       </record>
+       <record id="pedido2platico" model="jll_cornercookie.pedido_materiaprima">
+        <field name="id_materiaprima" ref="plastico"/>
+        <field name="id_pedido" ref="pedido2"/>
+        <field name="cantidad">966</field>
+       </record>
+       <record id="pedido3chocolate" model="jll_cornercookie.pedido_materiaprima">
+        <field name="id_materiaprima" ref="chocolate"/>
+        <field name="id_pedido" ref="pedido3"/>
+        <field name="cantidad">152</field>
+       </record>
+       <record id="pedido3harina" model="jll_cornercookie.pedido_materiaprima">
+        <field name="id_materiaprima" ref="harina"/>
+        <field name="id_pedido" ref="pedido3"/>
+        <field name="cantidad">5562</field>
+       </record>
+       <!-- Productos -->
+       <record id="galleta_maria" model="jll_cornercookie.producto">
+        <field name="name">Galleta María</field>
+        <field name="precio">0.03</field>
+        <field name="cantidad">1500</field>
+        <field name="imagen" type="base64" file="/var/lib/odoo/modules/jll_cornercookie/imgs/galleta-maria.jpg"/>
+       </record>
+       <record id="galleta" model="jll_cornercookie.producto">
+        <field name="name">Galleta</field>
+        <field name="precio">0.05</field>
+        <field name="cantidad">0</field>
+        <field name="imagen" type="base64" file="/var/lib/odoo/modules/jll_cornercookie/imgs/galleta_default.jpeg"/>
+       </record>
+
+       <!-- Hornada -->
+       <record id="hornada1" model="jll_cornercookie.hornada">
+        <field name="cantidad">500</field>
+        <field name="id_producto" ref="galleta_maria" />
+       </record>
+       <record id="hornada2" model="jll_cornercookie.hornada">
+        <field name="cantidad">1000</field>
+        <field name="id_producto" ref="galleta_maria" />
+       </record>
+
+       <!-- Maquinas -->
+       <record id="maquina1" model="jll_cornercookie.maquinaria">
+        <field name="nombre">Amasadora</field>
+        <field name="modelo">15538</field>
+        <field name="cantidad">8</field>
+        <field name="fabricante">Inditex</field>
+       </record>
+       <record id="maquina2" model="jll_cornercookie.maquinaria">
+        <field name="nombre">Cortadora</field>
+        <field name="modelo">10000 XL</field>
+        <field name="cantidad">50</field>
+        <field name="fabricante">JBL</field>
+       </record>
+       <record id="maquina3" model="jll_cornercookie.maquinaria">
+        <field name="nombre">Multi mix</field>
+        <field name="modelo">5</field>
+        <field name="cantidad">32</field>
+        <field name="fabricante">Marketronic</field>
+       </record>
+
+       <!-- Procesos -->
+       <record id="proceso1" model="jll_cornercookie.proceso">
+        <field name="name">Amasar</field>
+        <field name="tipo">Mix</field>
+        <field name="tiempo">15.36</field>
+        <field name="id_maquinaria" ref="maquina1"/>
+       </record>
+       <record id="proceso2" model="jll_cornercookie.proceso">
+        <field name="name">cortar</field>
+        <field name="tipo">Maq</field>
+        <field name="tiempo">1.36</field>
+        <field name="id_maquinaria" ref="maquina2"/>
+       </record>
+       <record id="proceso2" model="jll_cornercookie.proceso">
+        <field name="name">Amordazar</field>
+        <field name="tipo">Maq</field>
+        <field name="tiempo">1.36</field>
+        <field name="id_maquinaria" ref="maquina3"/>
+       </record>
+       <record id="proceso2" model="jll_cornercookie.proceso">
+        <field name="name">Gratinar</field>
+        <field name="tipo">Maq</field>
+        <field name="tiempo">1.36</field>
+        <field name="id_maquinaria" ref="maquina3"/>
+       </record>
+       <record id="proceso2" model="jll_cornercookie.proceso">
+        <field name="name">contar</field>
+        <field name="tipo">Man</field>
+        <field name="tiempo">0.63</field>
+       </record>
+    </data>
+    
+
+</odoo>

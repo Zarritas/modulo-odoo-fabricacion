@@ -73,6 +73,7 @@ class Producto(models.Model):
     id_horneadas = fields.One2many('jll_cornercookie.hornada','id_producto',string='Horneadas asociadas')
     id_procesos = fields.Many2many('jll_cornercookie.proceso',string='Procesos que se necesitan')
     ean = fields.Char('Código EAN', size=13)
+    imagen = fields.Image("Imagen")
 
     @api.model
     def _generate_unique_ean(self):

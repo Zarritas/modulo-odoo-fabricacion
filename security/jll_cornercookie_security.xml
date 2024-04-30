@@ -1,0 +1,22 @@
+<odoo>
+
+    <record id="module_jll_cornercookie_category" model="ir.module.category">
+        <field name="name">Fabrica de Galletas</field>
+        <field name="description">Categoria para los grupos de la Fabrica de Galletas</field>
+    </record>
+
+    <record id="jll_cornercookie_group_administradores" model="res.groups">
+        <field name="name">Administradores</field>
+        <field name="category_id" ref="module_jll_cornercookie_category"/>
+    </record>
+
+    <record id="jll_cornercookie_group_fabricantes" model="res.groups">
+        <field name="name">Fabricantes</field>
+        <field name="category_id" ref="module_jll_cornercookie_category"/>
+    </record>
+    <record id="jll_cornercookie_group_logistica" model="res.groups">
+        <field name="name">Logistica</field>
+        <field name="category_id" ref="module_jll_cornercookie_category"/>
+    </record>
+    
+</odoo>

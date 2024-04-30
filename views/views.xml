@@ -153,7 +153,8 @@
       <field name="arch" type="xml">
           <form string="Producto" style="font-size: 20px;">
               <div class="oe_title">
-                  <h1 style="color: #4EACC8; font-size: 50px;">Nombre de producto: <field name="name"/></h1>
+                <field name="imagen" widget="image" class="oe_avatar"/>
+                <h1 style="color: #4EACC8; font-size: 50px;">Nombre de producto: <field name="name"/></h1>
               </div>
               <sheet>
                   <div class="oe_structure">
@@ -188,8 +189,9 @@
                       <div class="oe_kanban_global_click">
                           <div class="oe_kanban_card">
                               <div class="oe_kanban_card_inner">
+                                <field name="imagen" widget="image" class="oe_avatar"/>
                                   <div class="oe_kanban_card_title">
-                                      <field name="name"/>
+                                    <field style="color: red; font-size=30px;" name="name"/>
                                   </div>
                                   <div class="oe_kanban_card_content">
                                       <div>
@@ -389,21 +391,39 @@
     <menuitem name="Fabricación de galletas" id="jll_cornercookie.menu_root"/>
 
     <!-- menu categories -->
+    <menuitem
+        id="menu_logistica"
+        name="Logistica"
+        sequence="10"
+        parent="jll_cornercookie.menu_root"/>
+    <menuitem
+        id="menu_almacen"
+        name="Almacen"
+        sequence="20"
+        parent="jll_cornercookie.menu_root"/>
+    <menuitem
+        id="menu_otros"
+        name="Otros"
+        sequence="30"
+        parent="jll_cornercookie.menu_root"/>
 
+        
     <!-- actions -->
-    <menuitem name="Pedido" id="jll_cornercookie.menu_pedido_list" parent="jll_cornercookie.menu_root"
+    <menuitem name="Pedido" id="jll_cornercookie.menu_pedido_list" parent="jll_cornercookie.menu_logistica"
               action="jll_cornercookie.pedido_action_window"/>
-    <menuitem name="Proveedor" id="jll_cornercookie.menu_provbeedor_list" parent="jll_cornercookie.menu_root"
+    <menuitem name="Proveedor" id="jll_cornercookie.menu_provbeedor_list" parent="jll_cornercookie.menu_logistica"
               action="jll_cornercookie.proveedor_action_window"/>
-    <menuitem name="Materia Prima" id="jll_cornercookie.menu_materia_prima_list" parent="jll_cornercookie.menu_root"
+
+    <menuitem name="Materia Prima" id="jll_cornercookie.menu_materia_prima_list" parent="jll_cornercookie.menu_almacen"
               action="jll_cornercookie.materia_prima_action_window"/>
-    <menuitem name="Producto" id="jll_cornercookie.producto_prima_list" parent="jll_cornercookie.menu_root"
+    <menuitem name="Producto" id="jll_cornercookie.producto_list" parent="jll_cornercookie.menu_almacen"
               action="jll_cornercookie.producto_action_window"/>
-    <menuitem name="Hornada" id="jll_cornercookie.hornada_prima_list" parent="jll_cornercookie.menu_root"
+
+    <menuitem name="Hornada" id="jll_cornercookie.hornada_list" parent="jll_cornercookie.menu_otros"
               action="jll_cornercookie.hornada_action_window"/>
-    <menuitem name="Proceso" id="jll_cornercookie.menu_proceso_list" parent="jll_cornercookie.menu_root"
+    <menuitem name="Proceso" id="jll_cornercookie.menu_proceso_list" parent="jll_cornercookie.menu_otros"
               action="jll_cornercookie.proceso_action_window"/>
-    <menuitem name="Maquinaria" id="jll_cornercookie.menu_maquinaria_list" parent="jll_cornercookie.menu_root"
+    <menuitem name="Maquinaria" id="jll_cornercookie.menu_maquinaria_list" parent="jll_cornercookie.menu_otros"
               action="jll_cornercookie.maquinaria_action_window"/>
   </data>
 </odoo>
